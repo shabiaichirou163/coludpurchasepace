@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cloudpurchase.cloudpurchase.MainActivity"
+    android:background="@drawable/listview_seller">
+<TextView
+    android:id="@+id/Seller_goods_type_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="平板电脑"
+    android:textSize="@dimen/top_text_15"
+    android:textColor="@color/unfocused"
+    android:gravity="center"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:duplicateParentState="true"
+    />
+</LinearLayout>

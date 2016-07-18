@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#F4F4F4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <EditText
+            android:singleLine="true"
+            android:phoneNumber="true"
+            android:id="@+id/findPwd_first_editText"
+            android:lines="1"
+            android:maxLines="1"
+            android:maxLength="16"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:paddingLeft="10dp"
+            android:hint="请输入账号"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#C8C8C8"></LinearLayout>
+<Button
+    android:layout_marginTop="15dp"
+    android:textColor="#FFFFFF"
+    android:text="下一步"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:background="@mipmap/ljdb_2x"
+    android:id="@+id/findPwd_first_btn">
+</Button>
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgroud_color_white"
+    tools:context="com.cloudpurchase.cloudpurchase.ShowOrderShareActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/backgroud_color_red">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="云购记录"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/top_text_size"/>
+     <!--   <ImageButton
+            android:id="@+id/frag_shopping_cart_setup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/setup"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"/> -->
+    </RelativeLayout>
+   <LinearLayout
+       android:id="@+id/shopping_cart_layout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"></LinearLayout>
+</LinearLayout>

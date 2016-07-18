@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_seller"
+    tools:context="com.cloudpurchase.cloudpurchase.MainActivity"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+<ImageView
+    android:id="@+id/small_room_item_newst_img"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:src="@mipmap/iphone"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical">
+            <TextView
+                android:id="@+id/small_room_item_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="国行【送壳+钢化膜】Apple/苹果iphone 6S Plus 5.5英寸全网通"
+                android:textSize="@dimen/top_text_12"
+                android:textColor="@color/text_color_block_goods_info"
+                android:lines="2"
+                android:ellipsize="end"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="价值:"
+                android:textColor="@color/text_color_block"
+                android:textSize="@dimen/text_size_12"/>
+                <TextView
+                    android:id="@+id/small_room_item_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="28888"
+                    android:textColor="@color/color_blue"
+                    android:textSize="@dimen/text_size_12"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="剩余:"
+                        android:textColor="@color/text_color_block"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <TextView
+                        android:id="@+id/small_room_item_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1件"
+                        android:textColor="@color/color_blue"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:id="@+id/small_room_item_btn"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:background="@mipmap/btn_red_backgroud"
+                android:focusable="false"
+                android:text="我要开房"
+                android:textColor="@color/text_color_white"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

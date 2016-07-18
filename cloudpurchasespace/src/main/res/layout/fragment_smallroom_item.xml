@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgroud_color_white">
+            <RadioGroup
+                android:id="@+id/small_room_rg"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/small_room_newst_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="最新商品"
+                    android:gravity="center"
+                    android:background="#ED1437"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="@dimen/good_list_text_size"/>
+                <RadioButton
+                    android:id="@+id/small_room_recommend_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:text="推荐房间"
+                    android:gravity="center"
+                    android:textColor="@color/text_color_block"
+                    android:textSize="@dimen/good_list_text_size" />
+            </RadioGroup>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/backgroud_color_red"></ImageView>
+    <FrameLayout
+        android:id="@+id/small_room_fraglayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+</LinearLayout>

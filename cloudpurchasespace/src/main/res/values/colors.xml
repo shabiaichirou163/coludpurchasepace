@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="text_color_block">#3B3B3B</color>
+    <color name="text_color_gray">#7F7F7F</color>
+    <color name="text_color_white">#FFFFFF</color>
+    <color name="backgroud_color_red">#ED1437</color>
+    <color name="text_color_red">#ED1437</color>
+    <color name="text_color_block_goods_info">#030303</color>
+    <color name="backgroud_color_white">#FFFFFF</color>
+    <color name="user_color_select">#F5F5F5</color>
+    <color name="color_blue">#4a95e7</color>
+    <color name="color_grid_pressed">#F8F8FF</color>
+    <color name="unfocused">#F0F0F0</color>
+    <color name="pressed">#FFFFFF</color>
+    <color name="cut_line">#f6f6f6</color>
+    <color name="province_line_border">#C7C7C7</color>
+
+    <color name="shadow">#cc222222</color>
+</resources>

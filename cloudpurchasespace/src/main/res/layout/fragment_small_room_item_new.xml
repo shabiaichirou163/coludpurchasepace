@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroud_color_white">
+    <com.cloudpurchase.veiw.MyListView
+        android:id="@+id/smallRoom_goods_new"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/cut_line"
+        android:dividerHeight="1px">
+    </com.cloudpurchase.veiw.MyListView>
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="160dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#ED1437">
+        <TextView
+            android:layout_marginLeft="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="前选择："
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+<EditText
+    android:id="@+id/dialog_edit"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@null"
+    android:lines="1"
+    android:maxLength="12"
+    android:layout_gravity="center"
+    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F4F4F4"></LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:id="@+id/dialog_btn1"
+            android:layout_marginTop="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/ljdb"
+            android:text="确定"
+            android:textColor="#FFFFFF" />
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:id="@+id/dialog_btn2"
+            android:layout_marginTop="10dip"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@mipmap/ljdb"
+            android:text="取消"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</LinearLayout>

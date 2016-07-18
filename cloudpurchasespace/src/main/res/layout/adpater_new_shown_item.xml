@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_seller"
+    tools:context="com.cloudpurchase.cloudpurchase.MainActivity"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
+<ImageView
+    android:id="@+id/new_shown_item_img"
+    android:layout_width="110dp"
+    android:layout_height="110dp"
+    android:src="@mipmap/a"/>
+<TextView
+    android:id="@+id/new_shown_item_txt_goodsinfo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="【第129期】Iphone SE"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:textSize="@dimen/top_text_14"
+    android:singleLine="true"
+    android:textColor="@color/text_color_block"/>
+<Button
+    android:id="@+id/new_shown_item_btn"
+    android:layout_width="match_parent"
+    android:layout_height="25dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:text="即将揭晓"
+    android:background="@mipmap/btn_blue_2"
+    android:textSize="@dimen/top_text_12"
+    android:textColor="@color/text_color_white"
+    android:layout_marginTop="10dp"
+    android:gravity="center"/>
+    <TextView
+        android:id="@+id/new_shown_item_time"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/text_color_red"
+        android:text="06:53:52"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@mipmap/btn_kuang"
+        android:textStyle="bold"/>
+</LinearLayout>

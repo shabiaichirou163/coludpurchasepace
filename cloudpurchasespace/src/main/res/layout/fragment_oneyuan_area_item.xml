@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/backgroud_color_white"
+    android:id="@+id/verticalScrollTextView_layout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/notice_2x"
+                android:layout_gravity="center_vertical"/>
+            <com.cloudpurchase.veiw.VerticalScrollTextView
+                android:id="@+id/verticalScrollTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="最新公告：小米手机4s 高S 64GB,颜色随时"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="5dp"
+        android:background="#F0F0F0"></LinearLayout>
+
+</LinearLayout>

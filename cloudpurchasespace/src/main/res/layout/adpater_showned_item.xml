@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_seller"
+    tools:context="com.cloudpurchase.cloudpurchase.MainActivity"
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+<ImageView
+    android:id="@+id/showned_item_img"
+    android:layout_width="110dp"
+    android:layout_height="90dp"
+    android:src="@mipmap/a"
+    android:layout_gravity="center_horizontal"/>
+<TextView
+    android:id="@+id/showned_item_txt_goodsinfo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="【第129期】Iphone SE"
+    android:textSize="@dimen/top_text_14"
+    android:singleLine="true"
+    android:textColor="@color/text_color_block"
+    android:ellipsize="end"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="期\t\t\t号: "
+        android:textSize="@dimen/top_text_12"
+        android:textColor="@color/text_color_gray"/>
+    <TextView
+        android:id="@+id/showned_data_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30601665"
+        android:textColor="@color/text_color_block"
+        android:textSize="@dimen/top_text_12"
+        android:singleLine="true"
+        android:ellipsize="end"/>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获奖用户: "
+            android:textSize="@dimen/top_text_12"
+            android:textColor="@color/text_color_gray"/>
+        <TextView
+            android:id="@+id/showned_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小小老虎的话多多"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/top_text_12"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参与人数: "
+            android:textSize="@dimen/top_text_12"
+            android:textColor="@color/text_color_gray"/>
+        <TextView
+            android:id="@+id/showned_use_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4399"
+            android:textColor="@color/text_color_block"
+            android:textSize="@dimen/top_text_12"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="幸运号码: "
+            android:textSize="@dimen/top_text_12"
+            android:textColor="@color/text_color_gray"/>
+        <TextView
+            android:id="@+id/showned_luck_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10003167"
+            android:textColor="@color/text_color_red"
+            android:textSize="@dimen/top_text_12"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="揭晓时间: "
+            android:textSize="@dimen/top_text_12"
+            android:textColor="@color/text_color_gray"/>
+        <TextView
+            android:id="@+id/showned_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今天13:08"
+            android:textColor="@color/text_color_block"
+            android:textSize="@dimen/top_text_12"
+            android:singleLine="true"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</LinearLayout>

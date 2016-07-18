@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">云购空间</string>
+    <string name="title_activity_guid">GuidActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开后刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新\u2026</string>
+    <string name="pull_to_refresh_footer_release_label">松开后加载</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+    <string name="text">http://miloisbadboy.com/</string>
+    <string name="hello_world">hello_world</string>
+    <string name="menu_settings">menu_settings</string>
+    <string name="one_yuan_area">一元专区</string>
+    <string name="ten_yuan_area">十元专区</string>
+    <string name="onehundred_yuan_area">百元专区</string>
+    <string name="small_room_area">小房间</string>
+    <string name="seller_area">卖家区</string>
+
+    <string name="title_activity_search">SearchActivity</string>
+
+    <string name="title_activity_goods_details">GoodsDetailsActivity</string>
+
+    <string name="title_activity_show_order_share">ShowOrderShareActivity</string>
+
+    <string name="title_activity_pay">PayActivity</string>
+
+    <string name="title_activity_pay_result">PayResultActivity</string>
+
+    <string name="title_activity_lead">LeadActivity</string>
+
+
+    <string name="head">这里是HeadView</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="pullup_to_load">上拉加载更多</string>
+    <string name="release_to_load">释放立即加载</string>
+    <string name="loading">正在加载...</string>
+    <string name="load_succeed">加载成功</string>
+    <string name="load_fail">加载失败</string>
+
+    <string name="title_activity_small_room_goods_details">SmallRoomGoodsDetailsActivity</string>
+</resources>

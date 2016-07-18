@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cloudpurchase.cloudpurchase.GuidActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<android.support.v4.view.ViewPager
+    android:id="@+id/guid_vpg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+</android.support.v4.view.ViewPager>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp">
+            <Button
+                android:id="@+id/guid_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击跳转"
+                android:layout_marginBottom="35dp"
+                android:visibility="invisible"
+                android:background="@mipmap/btn_blue"/>
+
+    <LinearLayout
+        android:id="@+id/guid_point_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"></LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+</RelativeLayout>

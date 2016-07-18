@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_seller"
+    tools:context="com.cloudpurchase.cloudpurchase.MainActivity"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="10dp">
+<ImageView
+    android:id="@+id/show_list_adpater_img"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@mipmap/iphone"
+    android:layout_gravity="top"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/show_list_adpater_user_txt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="话多多"
+                android:textColor="#ee4454"
+                android:textSize="@dimen/text_size_12"/>
+            <TextView
+                android:id="@+id/show_list_adpater_time_txt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="05-27 17:53"
+                android:textColor="#9f9b9b"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_12"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#eeeeee"
+            android:layout_marginTop="15dp"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/show_list_adpater_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="中奖喽,OPPOR9"
+                android:textSize="@dimen/top_text_14"
+                android:textColor="@color/text_color_block"/>
+            <TextView
+                android:id="@+id/show_list_adpater_goods_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="OPPOR9 R9 4G手机"
+                android:layout_marginTop="10dp"
+                android:textColor="#9b9b9b"
+                android:textSize="@dimen/text_size_12"/>
+            <TextView
+                android:id="@+id/show_list_adpater_data_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="期号:30586667161"
+                android:layout_marginTop="6dp"
+                android:textColor="#9b9b9b"
+                android:textSize="@dimen/text_size_12"/>
+            <TextView
+                android:id="@+id/show_list_adpater_show_speak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="好开心,不知道说些什么,感谢云购空间,希望你们越办越好,能在给我中个奖就更好！"
+                android:layout_marginTop="12dp"
+                android:textColor="#4a4a6e"
+                android:textSize="@dimen/text_size_12"/>
+            <LinearLayout
+                android:id="@+id/show_list_adpater_display_img_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+              <ImageView
+                  android:layout_width="56dp"
+                  android:layout_height="56dp"
+                  android:src="@mipmap/ip"/>
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@mipmap/ip"
+                    android:layout_marginLeft="15dp"/>
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@mipmap/iphone"
+                    android:layout_marginLeft="15dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</LinearLayout>

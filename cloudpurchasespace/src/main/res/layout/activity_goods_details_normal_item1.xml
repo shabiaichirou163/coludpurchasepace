@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroud_color_white"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+        <TextView
+            android:id="@+id/goodsDetails_data_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="期号: 3068666683"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/text_size_12"
+            android:textColor="@color/text_color_gray"
+            android:layout_marginBottom="3dp"/>
+        <ProgressBar
+            android:id="@+id/goodsDetails_prgress"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_gravity="center"
+            android:max="100"
+            android:progress="80"
+            android:progressDrawable="@drawable/progressbar_color"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp">
+        <TextView
+            android:id="@+id/goodsDetails_total_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总需4399人次"
+            android:textSize="@dimen/text_size_12"
+            android:layout_weight="1"
+            android:textColor="@color/text_color_gray" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="剩余: "
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/text_color_gray"/>
+            <TextView
+                android:id="@+id/goodsDetails_remain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1366"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/color_blue"/>
+        </LinearLayout>
+</LinearLayout>
