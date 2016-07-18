@@ -48,20 +48,14 @@ public class SmallRoomItemNewFragment extends Fragment {
         mNewFragmentView=inflater.inflate(R.layout.fragment_small_room_item_new,null);
         mNewLst= (MyListView) mNewFragmentView.findViewById(R.id.smallRoom_goods_new);
         mJsonReslove=new JsonReslove(getParentFragment().getActivity());
+        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
         getSmallNewestGoodsInfo("", "new");
         return mNewFragmentView;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
     /*
- 获取商品详情请求
-*/
+     *获取商品详情请求
+     */
     public void getSmallNewestGoodsInfo(String url,final String mode) {
         jasonResolver("{}",mode);
         //mTag="HttpPost";

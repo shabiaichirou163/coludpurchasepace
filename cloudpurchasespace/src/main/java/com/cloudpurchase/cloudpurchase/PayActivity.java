@@ -20,13 +20,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.android.volley.VolleyError;
 import com.cloudpurchase.base.BaseActivity;
 import com.cloudpurchase.cloudpurchase.R;
 import com.cloudpurchase.db.DBWrapper;
 import com.cloudpurchase.entity.GoodsDetails;
+import com.cloudpurchase.net.HttpImgLoader;
+import com.cloudpurchase.net.HttpRequest;
 import com.cloudpurchase.payutils.alipay.Alipay;
 import com.cloudpurchase.payutils.alipay.PayResult;
 import com.cloudpurchase.payutils.alipay.SignUtils;
+import com.cloudpurchase.utils.Constants;
+import com.cloudpurchase.utils.LogUtils;
+import com.cloudpurchase.utils.PayResultListener;
+import com.cloudpurchase.utils.RequestResultIn;
 
 import org.w3c.dom.Text;
 
@@ -45,7 +52,7 @@ import java.util.Random;
  * status bar and navigation/system bar) with user interaction.
  * 支付界面
  */
-public class PayActivity extends BaseActivity implements View.OnClickListener{
+public class PayActivity extends BaseActivity implements View.OnClickListener,PayResultListener{
     private TextView mGoodsNum,mTotalPice,mRemainMoney,mTotalPice1;
     private LinearLayout mRemainLayout,mZFBLayout,mWXLayout,mYLLayout;
     private ImageView mRemainImg,mZFBImg,mWXImg,mYLImg;
@@ -59,6 +66,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
     public void initView() {
         setContentView(R.layout.activity_pay);
         mAlipay=new Alipay(this);
+        mAlipay.setOnPayResultListener(this);
         mDBWrapper=new DBWrapper(this);
         mGoodsNum= (TextView) this.findViewById(R.id.activity_pay_speak_txt);
         mTotalPice= (TextView) this.findViewById(R.id.activity_pay_price);
@@ -74,9 +82,27 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
         mTotalPice1= (TextView) this.findViewById(R.id.activity_pay_total_price);
         mConfirmPayBtn= (Button) this.findViewById(R.id.activity_pay_confirm_btn);
         mBckBtn= (ImageButton) this.findViewById(R.id.activity_pay_back_btn);
+        getOrderPayType();
         getData();
     }
 
+    /**
+     * 获取订单支付方式
+     */
+    public void getOrderPayType(){
+        String url= Constants.GET_ORDER_PAY_TYPE;
+        HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {
+            @Override
+            public void requstSuccful(String result) {
+                LogUtils.e(result);
+            }
+
+            @Override
+            public void requstError(VolleyError error) {
+
+            }
+        });
+    }
     @Override
     public void setOnclick() {
         mBckBtn.setOnClickListener(this);
@@ -166,4 +192,25 @@ public class PayActivity extends BaseActivity implements View.OnClickListener{
         this.finish();
     }
 
+    /**
+     * 支付成功
+     */
+    @Override
+    public void paySucceed() {
+
+    }
+    /**
+     * 支付确认中
+     */
+    @Override
+    public void payAffirming() {
+
+    }
+    /**
+     * 支付失败
+     */
+    @Override
+    public void payFail() {
+
+    }
 }

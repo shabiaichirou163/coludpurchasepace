@@ -80,7 +80,7 @@ public class HttpRequest {
         };
         srReq.setShouldCache(true); // 是否使用缓存
         srReq.setTag(tag);
-        srReq.setRetryPolicy(new DefaultRetryPolicy(50000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
+        srReq.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyApplication.getHttpRequestQueue().add(srReq);
     }
@@ -109,7 +109,7 @@ public class HttpRequest {
         };
         srReq.setShouldCache(true); // 是否使用缓存
         srReq.setTag(tag);
-        srReq.setRetryPolicy(new DefaultRetryPolicy(50000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
+        srReq.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,//默认最大尝试次数
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyApplication.getHttpRequestQueue().add(srReq);
     }

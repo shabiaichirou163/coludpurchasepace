@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:divider="@color/cut_line"
-                    android:dividerHeight="1dp"></ListView>
+                    android:dividerHeight="1px"></ListView>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

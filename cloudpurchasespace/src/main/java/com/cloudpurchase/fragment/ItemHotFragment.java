@@ -47,6 +47,7 @@ public class ItemHotFragment extends Fragment {
         mHotFragmentView=inflater.inflate(R.layout.fragment_one_yuan_item_hot,null);
         mHotGrd= (MyGridView) mHotFragmentView.findViewById(R.id.one_frag_item_hot);
         mJsonReslove=new JsonReslove(getParentFragment().getActivity());
+        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
         mApplication = (MyApplication) getParentFragment().getActivity().getApplicationContext();
         switch (mApplication.getmSeclectFrag()){
             case "oneYuanArea":
@@ -65,16 +66,9 @@ public class ItemHotFragment extends Fragment {
         return mHotFragmentView;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
     /*
- 获取商品详情请求
-*/
+     *获取商品详情请求
+     */
     public void getHotGoodsInfo(String url,final String mode) {
         //mTag="HttpPost";
         HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {

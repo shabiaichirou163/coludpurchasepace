@@ -3,19 +3,12 @@ package com.cloudpurchase.fragment;
 import android.view.View;
 import android.widget.ListView;
 
-import com.android.volley.VolleyError;
 import com.cloudpurchase.adpater.RecordOverAdapter;
 import com.cloudpurchase.base.BaseFragment;
-import com.cloudpurchase.cloudpurchase.MyApplication;
 import com.cloudpurchase.cloudpurchase.R;
 import com.cloudpurchase.entity.RecordOverEntity;
-import com.cloudpurchase.net.HttpRequest;
-import com.cloudpurchase.utils.Constants;
-import com.cloudpurchase.utils.LogUtils;
-import com.cloudpurchase.utils.RequestResultIn;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,7 +21,6 @@ public class RecordOverListViewFragment extends BaseFragment {
     private int mOverSize = 10;
     private RecordOverAdapter adaper;
     private ListView mListView;
-    private int mPagenum = 1;//每次请求的页数，每次请求后+1
 
     @Override
     public View initView() {
@@ -41,19 +33,6 @@ public class RecordOverListViewFragment extends BaseFragment {
     @Override
     public void initList() {
         initOverBean();
-        //TODO
-        String url = Constants.RECORD+MyApplication.USER_ID+"/"+mPagenum+"?token="+MyApplication.USER_TOKEN;
-        HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {
-            @Override
-            public void requstSuccful(String result) {
-                LogUtils.e(result);
-            }
-
-            @Override
-            public void requstError(VolleyError error) {
-                LogUtils.e(String.valueOf(error));
-            }
-        });
         adaper = new RecordOverAdapter(getActivity(),mOverList);
         mListView.setAdapter(adaper);
         mListView.setDivider(null);//隐藏下划线

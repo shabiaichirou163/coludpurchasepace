@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.cloudpurchase.cloudpurchase.PayResultActivity;
+import com.cloudpurchase.utils.PayResultListener;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -36,20 +37,20 @@ public class Alipay {
     // 商户收款账号
     public static final String SELLER = "zhaoqiwangluo@126.com";
     // 商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALGbLOl+L+u5t1n6\n" +
-            "msxlUuzcksAF3i1S5LQi/31DTghXpABykEuiejBHN49+G+qxcXqBeWXzwOu925io\n" +
-            "c/SVcBs8NKlxX+KBvlBCMeSRSj44jnmCaAPxi9ngFvcw6nnlRKxCujk/8C0VmXwf\n" +
-            "oYKGnJ4Z6HMYkEOGhnw6//y08GMjAgMBAAECgYAcAr0ylhQ4uTGRn1SKp/BMKv16\n" +
-            "C3Le8xPe1SY2O0czSZ8z8t2PEDD1LEY2+0yr1xBuobzjt23VwDvB989R47+qSK8W\n" +
-            "0RdLcNQJ2bZZLDvsywu7KNShd/PnpQn+dVzffv6M/PsNp/OpBRXv9f1T+WCU4InG\n" +
-            "NNhHGK18SYDjFdxuAQJBANlNxtq3Gme2pgLApukRXPhSaHcdFAX9GBVmehZ3z180\n" +
-            "gxw6hBmMcHp6XdXcKjaPaExPW0noNEx+zoLOiDGSrIsCQQDRO7PSi4rfZIcIwAey\n" +
-            "y62PrUAWykkrOfZGr5wHirgZh4q/RABeoSMG79XeceDdaZZ4CK2jGko/3FxO2fXu\n" +
-            "X/7JAkEAxrZi87qhANp7cOTvPQ5NsB7bvKDwoJFTJq6xUj55eZwxkOzJw/szGC0y\n" +
-            "BdDxITd+rtmapzkaKiGDgwaOcJaqBQJAQE1V1VX3RvJRIZpKg2NfIrG+6YIffH5i\n" +
-            "tpSPoi26qHXkaSWP64UgC6i3lJZw4frqOFeKbX7N5NRnNgB8OVcdKQJAWscg8I9P\n" +
-            "h+ZCbyTnmThKAEVLeviIRbSrhe/fJFucOJTCRVVMO6QnaoLfFOTdcjV6cbTJqdhX\n" +
-            "DdSpaLJ+tnOoSA==";
+    public static final String RSA_PRIVATE = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAOcm4lQF2YRNQQYl\n" +
+            "Q0jSrXaKTH/FQw2qH+yzpkEqdqbblXa5qiStSROtrmH+P5sZ8FDf1mTkdzMrFw0c\n" +
+            "qparY/UPGJ8w7r7d7s7GPHaLY4RDfOPksIRvMVlumQQIPofjVSYBViydBE5t8gfp\n" +
+            "I/en36mTvhWMZNu9eKylE5atV34HAgMBAAECgYB2EkKhsKs/DUcdoIMR+6tnVZVl\n" +
+            "3pk1raTI/6r4tnwNFzTthEEIowsk5h6hJ4HN9B3w8aVNu/W3SVdo9y+b7sgLOLQJ\n" +
+            "8OiSCwtkmxuW1FE+c8+LWWkuf1s2cECcj77HirnxIiVzwnM30JiiGVY350iKSzq7\n" +
+            "1XaWZ/J9dvqj8j2kgQJBAPblCDlospWL+wWhLPWOG5GSsvEtt/kNsLfjlxPWAbLP\n" +
+            "lH9gGQl+2uuoaSney+ZReje4kilwPGXQMiEWpzaL1bECQQDvrTjl8j/jtNbSnz/M\n" +
+            "KMYLduB2y5Ifvh7C1Eiki5WvyqO88qLLiae51Xu8+T1Fqo9CCyYWngaXfZzLcXzu\n" +
+            "iiU3AkBizNB3uNAOTFANtqv5L/8USDJXlUYT4kifrfHdPDy9w5fXSSt7w0n0GBbN\n" +
+            "bJ0H8/8GoVPMRV/GFoSY/Sm5CEhhAkEAjyWgRAYpjnBllaozSlZX4mT/rzPqdDby\n" +
+            "3F45fL05i6K1pJYuEO6IVH9ixfz+UWuK4GEUQJHlUfld+kwv17B+hQJBAPR88qk/\n" +
+            "sL7CLTWrJaVVAupUHqsr3RmHsoXh/34PRGX1jjZ2kUMA92cwHLZ8NTo/skkcm3sB\n" +
+            "6Z5G9hx6U++xIT0=";
     // 支付宝公钥
 //    //public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCxmyzpfi/rubdZ+prMZVLs3JLA\n" +
 //            "Bd4tUuS0Iv99Q04IV6QAcpBLonowRzePfhvqsXF6gXll88DrvduYqHP0lXAbPDSp\n" +
@@ -76,18 +77,17 @@ public class Alipay {
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(mContext, "支付成功", Toast.LENGTH_SHORT).show();
-
-                        Intent intent=new Intent(mContext,PayResultActivity.class);
-                        mContext.startActivity(intent);
+                       mPayResultListener.paySucceed();
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败
                         // "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
                             Toast.makeText(mContext, "支付结果确认中", Toast.LENGTH_SHORT).show();
+                            mPayResultListener.payAffirming();
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(mContext, "支付失败", Toast.LENGTH_SHORT).show();
-
+                            mPayResultListener.payFail();
                         }
                     }
                     break;
@@ -243,5 +243,11 @@ public class Alipay {
      */
     private String getSignType() {
         return "sign_type=\"RSA\"";
+    }
+
+
+    PayResultListener mPayResultListener;
+    public void setOnPayResultListener(PayResultListener payResultListener){
+        mPayResultListener=payResultListener;
     }
 }

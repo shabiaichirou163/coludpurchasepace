@@ -6,9 +6,14 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.android.volley.VolleyError;
 import com.cloudpurchase.adpater.LuckyAdapter;
 import com.cloudpurchase.base.BaseActivity;
 import com.cloudpurchase.entity.LuckyEntity;
+import com.cloudpurchase.net.HttpRequest;
+import com.cloudpurchase.utils.Constants;
+import com.cloudpurchase.utils.LogUtils;
+import com.cloudpurchase.utils.RequestResultIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +66,18 @@ public class LuckyActivity extends BaseActivity implements View.OnClickListener,
             bean.state = "已签收";
             list.add(bean);
         }
+        String url = Constants.LUCKY +MyApplication.USER_ID+"/1"+"?token="+MyApplication.USER_TOKEN;
+        HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {
+            @Override
+            public void requstSuccful(String result) {
+                LogUtils.e(result);
+            }
+
+            @Override
+            public void requstError(VolleyError error) {
+                LogUtils.e(String.valueOf(error));
+            }
+        });
     }
 
     @Override

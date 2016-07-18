@@ -1,6 +1,7 @@
 package com.cloudpurchase.cloudpurchase;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
@@ -15,12 +16,12 @@ import com.cloudpurchase.base.BaseActivity;
 import com.cloudpurchase.base.BaseToast;
 import com.cloudpurchase.net.HttpRequest;
 import com.cloudpurchase.utils.Constants;
+import com.cloudpurchase.utils.EncryptionAndDecryptUtils;
 import com.cloudpurchase.utils.FileUtils;
 import com.cloudpurchase.utils.LogUtils;
 import com.cloudpurchase.utils.RegularExpression;
 import com.cloudpurchase.utils.RequestResultIn;
 import com.cloudpurchase.utils.SecurityUtil;
-import com.cloudpurchase.utils.SharedFileUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -200,9 +201,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             mIntent.putExtra("phone",phone);
                             mIntent.putExtra("flag","true");
                             startActivity(mIntent);
-                            SharedFileUtils util =
-                                    new SharedFileUtils(RegisterActivity.this,"USER_INFO",RegisterActivity.MODE_PRIVATE);
-                            util.saveStringFile("phone",phone);
                             //跳转到找回密码界面，此时找回密码界面加载是的是设置密码界面
                             cancelDialog();
                             finish();

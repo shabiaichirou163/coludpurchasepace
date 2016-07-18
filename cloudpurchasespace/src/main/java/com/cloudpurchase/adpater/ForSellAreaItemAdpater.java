@@ -15,12 +15,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.cloudpurchase.cloudpurchase.GoodsDetailsActivity;
+import com.cloudpurchase.cloudpurchase.LoginActivity;
+import com.cloudpurchase.cloudpurchase.MyApplication;
 import com.cloudpurchase.cloudpurchase.R;
 import com.cloudpurchase.db.DBWrapper;
 import com.cloudpurchase.entity.GoodsDetails;
+import com.cloudpurchase.entity.RequestInfo;
+import com.cloudpurchase.net.HttpRequest;
+import com.cloudpurchase.utils.Constants;
 import com.cloudpurchase.utils.InsertSuccessful;
+import com.cloudpurchase.utils.JsonReslove;
 import com.cloudpurchase.utils.LogUtils;
+import com.cloudpurchase.utils.RequestResultIn;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,11 +39,15 @@ import java.util.List;
 public class ForSellAreaItemAdpater extends BaseAdapter {
     private Activity mContext;
     private List<GoodsDetails> mData;
-    private DBWrapper mDBWrapper;
+    private HashMap<ImageButton,ImageView> mMap;
+    private HashMap<String,String> mDataMap;
+    private JsonReslove mReslove;
     public ForSellAreaItemAdpater(Activity context, List<GoodsDetails> data){
         mContext=context;
         mData=data;
-        mDBWrapper=new DBWrapper(context);
+        mMap=new HashMap<ImageButton,ImageView>();
+        mDataMap=new HashMap<String,String>();
+        mReslove=new JsonReslove(mContext);
     }
     @Override
     public int getCount() {
@@ -71,6 +83,7 @@ public class ForSellAreaItemAdpater extends BaseAdapter {
             voldHoder= (ViewHolder) convertView.getTag();
         }
         final GoodsDetails goodsDetails=mData.get(position);
+        mMap.put(voldHoder.smallRoomCartBtn,voldHoder.smallRoomGoodsImg);
         voldHoder.smallRoomGoodsImg.setImageResource(R.mipmap.iphone);
         voldHoder.smallRoomPriceTxt.setText(goodsDetails.getPrice() + "");
         voldHoder.smallRoomParticipateNum.setText(goodsDetails.getParticipate()+"");
@@ -83,27 +96,20 @@ public class ForSellAreaItemAdpater extends BaseAdapter {
         voldHoder.smallRoomCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isHas = false;//标示数据库商品Id 数据库存在此id 返回true
-                List<GoodsDetails> data = mDBWrapper.selectData();
-                if (data.size() > 0) {
-                    for (GoodsDetails good : data) {
-                        if (good.getGoodsId() == goodsDetails.getGoodsId()) {
-                            isHas = true;
-                        }
-                    }
-                }
-                if (!isHas || data.size() == 0) {
-                    mDBWrapper.insertData(goodsDetails);
-                }
-                if (insertSuccessful != null) {
-                    int startLoaction[] = new int[2];
-                    v.getLocationInWindow(startLoaction);
-                    startLoaction[0]=startLoaction[0]-voldHoder.smallRoomProgressBar.getMeasuredWidth()-
-                            voldHoder.smallRoomGoodsImg.getMeasuredHeight()-voldHoder.smallRoomPriceTxt.getMeasuredHeight();
-                    startLoaction[1]=startLoaction[1]-voldHoder.smallRoomDescription.getMeasuredHeight()-voldHoder.smallRoomPriceTxt.getMeasuredHeight();
-                    Drawable drawable = voldHoder.smallRoomGoodsImg.getDrawable();
-                    insertSuccessful.InsertSuccessful(drawable, startLoaction,"seller");
-                }
+               if (MyApplication.USER_IS_LOGIN_FLAG) {
+                   addToShoppingCart(goodsDetails);
+                   if (insertSuccessful != null&&mMap!=null) {
+                       ImageView img = mMap.get(v);
+                       int startLoaction[] = new int[2];
+                       img.getLocationInWindow(startLoaction);
+                       Drawable drawable = img.getDrawable();
+                       insertSuccessful.InsertSuccessful(drawable, startLoaction, "seller");
+                   }
+               }else{
+                   Toast.makeText(mContext,"请先您登录后在加入购物车,谢谢",Toast.LENGTH_SHORT).show();
+                   Intent intent=new Intent(mContext, LoginActivity.class);
+                   mContext.startActivity(intent);
+               }
             }
         });
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +117,8 @@ public class ForSellAreaItemAdpater extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent=new Intent(mContext,GoodsDetailsActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("goodsInfo", mData.get(position));
+                bundle.putString("flag","onefragment");
+                bundle.putString("activityId",goodsDetails.getActivityId());
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
                 Toast.makeText(mContext, "position" + position, Toast.LENGTH_SHORT).show();
@@ -144,5 +151,36 @@ public class ForSellAreaItemAdpater extends BaseAdapter {
     private InsertSuccessful insertSuccessful;
     public void getInsertSuccessful(InsertSuccessful insertSuccessful){
         this.insertSuccessful=insertSuccessful;
+    }
+
+
+    /**
+     * 加入购物车网络请求
+     *
+     */
+    public void addToShoppingCart(GoodsDetails goods){
+        if (mDataMap!=null){
+            mDataMap.clear();
+        }
+        mDataMap.put("memberId",7+"");
+        mDataMap.put("activityId",goods.getActivityId());
+        mDataMap.put("goodsnumber", 1 + "");
+        mDataMap.put("token", MyApplication.USER_TOKEN);
+        HttpRequest.getHttpRequest().requestPOST(Constants.GOODS_ADD_SHOPPING_CART,
+                null, mDataMap, new RequestResultIn() {
+                    @Override
+                    public void requstSuccful(String result) {
+                        LogUtils.e(result);//测试看结果
+                        RequestInfo info=mReslove.resloverIsSuff(result);
+                        if (info!=null&&insertSuccessful!=null&&info.getCode()==0){
+                            //添加购物车ok，回调
+                            insertSuccessful.InsertSuccessful(null,null,null);
+                        }
+                    }
+                    @Override
+                    public void requstError(VolleyError error) {
+                        LogUtils.e(error.getClass().getSimpleName());//测试看结果
+                    }
+                });
     }
 }

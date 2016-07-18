@@ -81,7 +81,7 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
                 String url = Constants.OUT_LOGIN;
                 HashMap<String,String> map = new HashMap<String,String>();
                 map.put("userId",MyApplication.USER_ID);
-                map.put("userIdsn",MyApplication.SerialNumber);
+                map.put("sn",MyApplication.SerialNumber);
                 HttpRequest.getHttpRequest().requestPOST(url, null,map, new RequestResultIn() {
                     @Override
                     public void requstSuccful(String result) {

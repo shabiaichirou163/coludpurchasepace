@@ -4,6 +4,7 @@ import android.content.Context;
 import android.provider.ContactsContract;
 
 import com.cloudpurchase.entity.GoodsDetails;
+import com.cloudpurchase.entity.Order;
 import com.cloudpurchase.entity.RequestInfo;
 import com.cloudpurchase.entity.ShoppingCartInfo;
 import com.cloudpurchase.entity.UserFragmentEntity;
@@ -31,7 +32,7 @@ public class JsonReslove {
     }
 
     /**
-     * 解析商品信息
+     * 解析一元 十元 百元区 商品信息
      * @param result
      * @return
      */
@@ -117,13 +118,13 @@ public class JsonReslove {
         return goods;
     }
     /**
-     * 解析商品信息
+     * 解析商品信息  目前为假数据
      * @param result
      * @return
      */
     public List<GoodsDetails> resloveGoods1(JSONObject result){
         List<GoodsDetails> data=new ArrayList<GoodsDetails>();
-        for (int i=0;i<10;i++){
+        for (int i=0;i<9;i++){
             GoodsDetails goodsDetails=new GoodsDetails();
             goodsDetails.setParticipate(2000);
             goodsDetails.setPrice(3000);
@@ -137,7 +138,7 @@ public class JsonReslove {
         return data;
     }
     /**
-     * 解析用户信息
+     * 解析商品详情页用户参与信息
      * @param result
      * @return
      */
@@ -171,17 +172,17 @@ public class JsonReslove {
 
 
     /**
-     * 解析返回是否成功
+     * 解析返回是否成功  作为返回成功参考  code 0 标示成功
      */
     public RequestInfo resloverIsSuff(String  result){
         RequestInfo info=new RequestInfo();
         try {
             JSONObject object=new JSONObject(result);
             int code=object.getInt("code");
-            int data=object.getInt("data");
+            //int data=object.getInt("data");
             String mes=object.getString("message");
             info.setCode(code);
-            info.setData(data);
+            //info.setData(data);
             info.setMessage(mes);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -204,6 +205,7 @@ public class JsonReslove {
                 int total=object.getInt("requireCount");
                 int remain=object.getInt("surplusCount");
                 int joinCount=object.getInt("joinCount");
+                int joinCost=object.getInt("joinCost");
                 goods.setShoppingCartId(shoppingCartId);
                 goods.setActivityId(activityId);
                 goods.setGoodsName(goodName);
@@ -212,6 +214,7 @@ public class JsonReslove {
                 goods.setTotal(total);
                 goods.setRemaining(remain);
                 goods.setJonitCost(joinCount);
+                goods.setJonitCost(joinCost);
                 data.add(goods);
             }
         } catch (JSONException e) {
@@ -278,6 +281,28 @@ public class JsonReslove {
             }
             return bean;
         }
+    }
+
+    /**
+     * 解析生成订单号
+     */
+
+    public Order resultOrederInfo(JSONObject result){
+        Order order=new Order();
+        try {
+            JSONObject object=result.getJSONObject("data");
+            String activityId=object.getString("activityId");
+            int userId=object.getInt("userId");
+            int payPrice=object.getInt("payFee");
+            String orderNum=object.getString("orderNumber");
+            order.setUserId(userId);
+            order.setPayPrice(payPrice);
+            order.setOrderNumber(orderNum);
+            order.setActivityId(activityId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return order;
     }
 }
 

@@ -37,44 +37,44 @@
             android:layout_weight="1"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/redPackage_allow"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="可使用"
                 android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="15sp"/>
             <ImageView
                 android:id="@+id/redPackage_img1"
-                android:layout_marginTop="10dp"
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="3dp"
                 android:background="@mipmap/red_package_line"/>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/redPackage_over"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="已使用/过期"
                 android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="15sp"/>
             <ImageView
                 android:id="@+id/redPackage_img2"
-                android:layout_marginTop="10dp"
                 android:layout_width="85dp"
-                android:layout_height="wrap_content"
+                android:layout_height="3dp"
                 android:background="@mipmap/red_package_line"/>
         </LinearLayout>
     </LinearLayout>

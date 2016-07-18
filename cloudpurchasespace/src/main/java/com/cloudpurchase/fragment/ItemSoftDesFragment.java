@@ -48,6 +48,7 @@ public class ItemSoftDesFragment extends Fragment {
         mDesFragmentView=inflater.inflate(R.layout.fragment_one_yuan_item_soft_des,null);
         mDesGrd= (MyGridView) mDesFragmentView.findViewById(R.id.one_frag_item_soft_des);
         mJsonReslove=new JsonReslove(getParentFragment().getActivity());
+        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
         mApplication = (MyApplication) getParentFragment().getActivity().getApplicationContext();
         switch (mApplication.getmSeclectFrag()){
             case "oneYuanArea":
@@ -66,16 +67,9 @@ public class ItemSoftDesFragment extends Fragment {
         return mDesFragmentView;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
     /*
- 获取商品详情请求
-*/
+     *获取商品详情请求
+     */
     public void getSoftDesDataInfo(String url,final String mode) {
 //        jasonResolver("{}",mode);
         //mTag="HttpPost";

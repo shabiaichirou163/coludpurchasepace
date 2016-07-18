@@ -50,6 +50,7 @@ public class ItemNewFragment extends Fragment {
         mNewFragmentView=inflater.inflate(R.layout.fragment_one_yuan_item_new,null);
         mNewGrd= (MyGridView) mNewFragmentView.findViewById(R.id.one_frag_item_new);
         mJsonReslove=new JsonReslove(getParentFragment().getActivity());
+        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
         mApplication = (MyApplication) getParentFragment().getActivity().getApplicationContext();
         switch (mApplication.getmSeclectFrag()){
             case "oneYuanArea":
@@ -68,31 +69,21 @@ public class ItemNewFragment extends Fragment {
         return mNewFragmentView;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
     /*
- 获取商品详情请求
-*/
+     *获取商品详情请求
+     */
     public void getNewestGoodsInfo(String url,final String mode) {
       //  jasonResolver("{}",mode);
         //mTag="HttpPost";
         HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {
             @Override
             public void requstSuccful(String result) {
-
                 jasonResolver(result, mode);
-
             }
 
             @Override
             public void requstError(VolleyError error) {
                 ((OneYuanAreaFragment)getParentFragment()).cancelDialog();
-                LogUtils.e(error.getClass()+"####################"+error);
                 if (error != null)
                     Toast.makeText(getParentFragment().getActivity(), error.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
                 mScrollView.displayAll();
@@ -105,7 +96,7 @@ public class ItemNewFragment extends Fragment {
         try {
             JSONObject object=new JSONObject(result);
             mGoodsData= mJsonReslove.resloveGoods(object);//正常用
-           // mGoodsData= mJsonReslove.resloveGoods1(object);//正常用
+           // mGoodsData= mJsonReslove.resloveGoods1(object);//测试用
             switch (mApplication.getmSeclectFrag()){
                 case "sellerShop":
                     switch (mode){

@@ -274,8 +274,6 @@ public class LoadMoreScrollView extends ScrollView {
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
         dec=getChildAt(0).getMeasuredHeight();
-        LogUtils.e(dec+"************"+getHeight()+"************"+getScrollY());
-
         if (dec>=getHeight()&&getHeight()+getScrollY()>=dec-mFooterViewHeight-10){
             mFooterView.setVisibility(View.VISIBLE);
         }

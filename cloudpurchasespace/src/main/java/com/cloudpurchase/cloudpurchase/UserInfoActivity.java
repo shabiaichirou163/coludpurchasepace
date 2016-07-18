@@ -99,7 +99,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 }else{
                     SharedFileUtils util = new SharedFileUtils(this,"USER_INFO",RegisterActivity.MODE_PRIVATE);
                     util.saveStringFile("nickName",name);
-                    util.saveStringFile("phone",phone);
+                    util.saveStringFile("mobilephone",phone);
                     MyApplication.USER_NICKNAME = name;
                     MyApplication.USER_PHONE = phone;
                     Bundle bundle=new Bundle();

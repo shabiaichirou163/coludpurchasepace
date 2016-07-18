@@ -39,17 +39,10 @@ public class ShowedFragment extends Fragment {
         mShowedFragment=inflater.inflate(R.layout.fragment_new_shown_item1,null);
         mShowedGrd= (GridView) mShowedFragment.findViewById(R.id.showned_grd);
         mJsonReslove=new JsonReslove(getParentFragment().getActivity());
+        mLazyScrollView = (LoadMoreScrollView) getParentFragment().getView().findViewById(R.id.new_shown_lazyScrollview);
         downLoadShowedData("","new");
         return mShowedFragment;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        mLazyScrollView = (LoadMoreScrollView) getParentFragment().getView().findViewById(R.id.new_shown_lazyScrollview);
-
-        super.onActivityCreated(savedInstanceState);
-    }
-
 
     /**
      * 请求数据

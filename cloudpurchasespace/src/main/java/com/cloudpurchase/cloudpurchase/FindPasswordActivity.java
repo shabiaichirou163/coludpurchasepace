@@ -265,6 +265,7 @@ public class FindPasswordActivity extends BaseActivity implements View.OnClickLi
                             HashMap<String,String> map = new HashMap<String,String>();
                             map.put("mobilephone",intentPhone);
                             map.put("password",pwd);
+                            map.put("sn",MyApplication.SerialNumber);
                             HttpRequest.getHttpRequest().requestPOST
                                     (Constants.RIGISTER, null, map, new RequestResultIn() {
                                         @Override

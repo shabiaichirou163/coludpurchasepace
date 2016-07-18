@@ -53,7 +53,6 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout mHeaderLayout,mFootLayout;//下拉刷新头布局
     private MyListView mUserInfoLst;
     private String mUrl="";//请求地址
-    private JsonReslove mReslove;
     private GoodsDetailsUsrInfoAdpater mUserInfoAdpater;//适配器
     private String mMode="other";//other 其它  footer 为上拉加载  header 为下拉刷新
     private TextView mNumber,mTotalNum,mRemainNum;//期号,总需人次 剩余人次
@@ -75,8 +74,6 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
         mFootLayout= (LinearLayout) findViewById(R.id.goods_details_foot_layout);
         mScrollView.initView(mHeaderLayout, mFootLayout);//添加头布局到LinearLayout
         mScrollView.setOnScorllPullAndLoadListener(this);
-
-        mReslove=new JsonReslove(this);
 
         //返回按钮 购物车按钮 以及购物车数字提醒绑定
         mBackBtn= (ImageButton) findViewById(R.id.goodsDetails_back);
@@ -132,8 +129,10 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
                 addShownedLayout();
                 break;
         }
-        //请求数据
-        downLoadData();
+        //请求商品详情数据
+        downLoadGoodsData();
+        //获取用户参与信息
+        downLoadUserData();
 
     }
 
@@ -274,14 +273,10 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
                 this.finish();
                 break;
             case R.id.goodsDetails_loot_goods:
-                addToShoppingCart();
-                Bundle bundle=new Bundle();
-                bundle.putString("flag", "loot");
-                toOtherActivity(HomeActivity.class, bundle);
-                this.finish();
+                addToShoppingCart("loot");
                 break;
             case R.id.goodsDetails_add_order:
-                addToShoppingCart();
+                addToShoppingCart("add");
                 break;
             case R.id.goods_details_login_txt:
                 toOtherActivity(LoginActivity.class);
@@ -297,12 +292,12 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
      * 向服务器请求数据商品详情数据
      */
 
-    public void downLoadData(){
+    public void downLoadGoodsData(){
         mUrl= Constants.GOODS_DETAILS_NORMAL+mActivityId;
         HttpRequest.getHttpRequest().requestGET(mUrl, null, new RequestResultIn() {
             @Override
             public void requstSuccful(String result) {
-                jsonResloverData(result);
+                jsonResloverGoodsData(result);
             }
 
             @Override
@@ -313,27 +308,57 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    private int mPageNum=1;
+    public void downLoadUserData(){
+
+        mUrl= Constants.GOODS_DETAILS_ACTIVITY+mActivityId+"/"+mPageNum;
+        LogUtils.e(mUrl);
+        HttpRequest.getHttpRequest().requestGET(mUrl, null, new RequestResultIn() {
+            @Override
+            public void requstSuccful(String result) {
+                jsonResloverUserData(result);
+            }
+
+            @Override
+            public void requstError(VolleyError error) {
+
+            }
+        });
+    }
+
     /**
      * 解析商品信息和用户参与信息
      * @param result
      */
 
     private GoodsDetails mGoodData;
-    private List<UserInfo>  mUserData;
-    public void jsonResloverData(String result){
-        LogUtils.e(result);
+    public void jsonResloverGoodsData(String result){
         try {
             JSONObject object=new JSONObject(result);
             mGoodData=mResloveData.resloveGoodsDetails(object);
             setData();
-            //mUserData=mResloveData.resloveUserInfo(object);
-           // resloverData(mUserData);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+
+    /**
+     * 解析用户参与信息
+     */
+    private List<UserInfo>  mUserData;//用户参与记录info
+    public void jsonResloverUserData(String result){
+        LogUtils.e(result+"商品详情页面用户参与信息");//测试查看用
+        try {
+            JSONObject object=new JSONObject(result);
+            mUserData = mResloveData.resloveUserInfo(object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
     /**
      * 设置商品信息
      */
@@ -348,7 +373,6 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
         List<String> imgUrl=mGoodData.getImgUrlArray();//获取图
         mUtils=new ViewPagerUtils(this,mViewPager,null,mPointLayout,imgUrl.size(),null,imgUrl);
         mUtils.event();
-
     }
 
 //    /**
@@ -381,12 +405,12 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
      * 加入购物车网络请求
      *
      */
-    public void addToShoppingCart(){
+    public void addToShoppingCart(final String flag){
         if (mDataMap!=null){
             mDataMap.clear();
         }
-        mDataMap.put("memberId",7+"");
-        mDataMap.put("activityId",141+"");
+        mDataMap.put("memberId",MyApplication.USER_ID+"");
+        mDataMap.put("activityId",mActivityId+"");
         mDataMap.put("goodsnumber", 1 + "");
         mDataMap.put("token",MyApplication.USER_TOKEN);
         HttpRequest.getHttpRequest().requestPOST(Constants.GOODS_ADD_SHOPPING_CART,
@@ -394,15 +418,24 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
                     @Override
                     public void requstSuccful(String result) {
                         LogUtils.e(result);//测试看结果
-                        RequestInfo info=mReslove.resloverIsSuff(result);
+                        RequestInfo info=mResloveData.resloverIsSuff(result);
                         if (info!=null&&info.getCode()==0){
+                            if (flag.equals("loot")){
+                                Bundle bundle=new Bundle();
+                                bundle.putString("flag", "loot");
+                                toOtherActivity(HomeActivity.class, bundle);
+                                GoodsDetailsActivity.this.finish();
+                            }
                             downLoadShoppingCartInfo();
                             Toast.makeText(GoodsDetailsActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(GoodsDetailsActivity.this,"添加不成功,请确认网络重新添加",Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
                     public void requstError(VolleyError error) {
                         LogUtils.e(error.getClass().getSimpleName());//测试看结果
+                        Toast.makeText(GoodsDetailsActivity.this,"qi",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -425,7 +458,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
      * 获取购物车商品种类
      */
     public void downLoadShoppingCartInfo(){
-        String url=Constants.GOOD_SHOPPING_CART_LIST+"?"+"token"+"="+MyApplication.USER_TOKEN;
+        String url=Constants.GOOD_SHOPPING_CART_LIST+MyApplication.USER_ID+"?"+"token"+"="+ MyApplication.USER_TOKEN;;
         HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {
             @Override
             public void requstSuccful(String result) {

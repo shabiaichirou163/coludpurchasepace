@@ -113,6 +113,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     HashMap<String,String> map = new HashMap<String,String>();
                     map.put("mobilephone",userNameStr);
                     map.put("password",userPwdStrl);
+                    map.put("sn",MyApplication.SerialNumber);
                     HttpRequest.getHttpRequest().requestPOST(Constants.LOGIN, null, map, new RequestResultIn() {
                         @Override
                         public void requstSuccful(String result) {

@@ -26,6 +26,14 @@
             android:textColor="@color/text_color_white"
             android:textSize="@dimen/top_text_size"/>
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -219,4 +227,6 @@
         android:layout_marginTop="15dp"
         android:text="友情提示:众筹有风险,购买需谨慎"
         android:textColor="@color/text_color_block"/>
+    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

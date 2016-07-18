@@ -43,7 +43,6 @@ import java.util.List;
 public class ForShoppingCartAdpater extends BaseAdapter {
     private Activity mContext;
     private List<GoodsDetails> mData;
-    private DBWrapper mDBWrapper;
     private Animation mAnimation;
     private String mEdit;//记录edit的值
     private HashMap<Integer,EditText> map;//绑定对应的EditText
@@ -53,7 +52,6 @@ public class ForShoppingCartAdpater extends BaseAdapter {
     public ForShoppingCartAdpater(Activity context, List<GoodsDetails> data) {
         mContext = context;
         mData = data;
-        mDBWrapper = new DBWrapper(context);
         mNetMap=new HashMap<String,String>();
         mAnimation = AnimationUtils.loadAnimation(mContext, R.anim.scale_text);
         map=new HashMap<Integer,EditText>();
@@ -140,7 +138,7 @@ public class ForShoppingCartAdpater extends BaseAdapter {
                 if (personNun < goods.getRemaining()) {
                     editText.startAnimation(mAnimation);
                     mFlag="add";
-                    addData(goods);
+                    addData(goods,0);
                 }
             }
         });
@@ -148,7 +146,7 @@ public class ForShoppingCartAdpater extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 mFlag="all";
-                addData(goods);
+                addData(goods,0);
             }
         });
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -184,16 +182,16 @@ public class ForShoppingCartAdpater extends BaseAdapter {
                     if (mEdit != null) {
                         if (mEdit.length() < 0 || "".equals(mEdit)) {
                             mFlag="deleteALl";
-                            addData(goods);
+                            addData(goods,0);
                         }
                         if (mEdit.length() > 0 && (Integer.parseInt(mEdit)) >= goods.getRemaining()) {
                             mFlag="more";
-                            addData(goods);
+                            addData(goods,0);
                         }
                         if (mEdit.length() > 0 && (Integer.parseInt(mEdit)) < goods.getRemaining()) {
                             //goods.setPersonNum(Integer.parseInt(mEdit));
                             mFlag="no";
-                            addData(goods);
+                            addData(goods,Integer.parseInt(mEdit));
                         }
                         personNumChangeListener.setPersonNumChangeListener();
                     }
@@ -258,28 +256,27 @@ public class ForShoppingCartAdpater extends BaseAdapter {
      * 增加时网络请求
      */
     private int mNumber;
-
-    public void addData(final GoodsDetails goodsDetails){
+    public void addData(final GoodsDetails goodsDetails,final int value){
         String url=Constants.ADD_SHOPPING_CART;
         if (mNetMap!=null){
             mNetMap.clear();
         }
         switch (mFlag){
             case "add":
-                mNumber = goodsDetails.getPersonNum() + 1;
+                mNumber=1;
                 break;
             case "all":
             case "more":
-                mNumber=goodsDetails.getRemaining();
+                mNumber=goodsDetails.getRemaining()-goodsDetails.getPersonNum();
                 break;
             case "deleteALl":
-                mNumber=1;
+                mNumber=1-goodsDetails.getPersonNum();
                 break;
             case "no":
-                mNumber = goodsDetails.getPersonNum();
+                mNumber=value- goodsDetails.getPersonNum();
                 break;
         }
-        mNetMap.put("memberId",7+"");
+        mNetMap.put("memberId",MyApplication.USER_ID+"");
         mNetMap.put("activityId",goodsDetails.getActivityId());
         mNetMap.put("goodsnumber",mNumber+"");
         mNetMap.put("token", MyApplication.USER_TOKEN);
@@ -288,7 +285,21 @@ public class ForShoppingCartAdpater extends BaseAdapter {
             public void requstSuccful(String result) {
                 RequestInfo info=mReslove.resloverIsSuff(result);
                 if (info!=null&&info.getCode()==0){
-                    goodsDetails.setPersonNum(mNumber);
+                    switch (mFlag){
+                        case "add":
+                            goodsDetails.setPersonNum(goodsDetails.getPersonNum()+1);
+                            break;
+                        case "all":
+                        case "more":
+                            goodsDetails.setPersonNum(goodsDetails.getRemaining());
+                            break;
+                        case "deleteALl":
+                            goodsDetails.setPersonNum(1);
+                            break;
+                        case "no":
+                            goodsDetails.setPersonNum(value);
+                            break;
+                    }
                     viewHoder.personNum.setText(goodsDetails.getPersonNum() + "");
                     notifyDataSetChanged();
                     personNumChangeListener.setPersonNumChangeListener();
@@ -303,7 +314,7 @@ public class ForShoppingCartAdpater extends BaseAdapter {
 
     }
     /**
-     * 增加时减少请求
+     * 减少时网络请求
      */
 
     public void reduceData(final GoodsDetails goodsDetails){
@@ -312,9 +323,9 @@ public class ForShoppingCartAdpater extends BaseAdapter {
             mNetMap.clear();
         }
         mNumber = goodsDetails.getPersonNum() - 1;
-        mNetMap.put("memberId",7+"");
+        mNetMap.put("memberId",MyApplication.USER_ID+"");
         mNetMap.put("activityId",goodsDetails.getActivityId());
-        mNetMap.put("goodsnumber",mNumber+"");
+        mNetMap.put("goodsnumber",1+"");
         mNetMap.put("token", MyApplication.USER_TOKEN);
         HttpRequest.getHttpRequest().requestPOST(url, null, mNetMap, new RequestResultIn() {
             @Override

@@ -40,15 +40,11 @@ public class SmallRoomItemRecommedFragment extends Fragment {
         mRecommedFragmentView=inflater.inflate(R.layout.fragment_small_room_item_recommend,null);
         mRecommedLst= (MyListView) mRecommedFragmentView.findViewById(R.id.smallRoom_goods_recommend);
         mJsonReslove=new JsonReslove(getParentFragment().getActivity());
+        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
         getRecommedestGoodsInfo("", "new");
         return mRecommedFragmentView;
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        mScrollView = (LoadMoreScrollView) ((OneYuanAreaFragment)getParentFragment()).getView().findViewById(R.id.one_frag_scrollView);
-        super.onActivityCreated(savedInstanceState);
-    }
     /*
      *获取商品详情请求
      */

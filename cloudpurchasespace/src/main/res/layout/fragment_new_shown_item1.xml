@@ -12,7 +12,6 @@
         android:gravity="center"
         android:horizontalSpacing="1px"
         android:verticalSpacing="1px"
-        android:listSelector="@null"
-       android:background="@color/cut_line">
+        android:listSelector="@null">
     </com.cloudpurchase.veiw.MyGridView>
 </LinearLayout>

@@ -211,8 +211,8 @@ public class HomeActivity extends BaseFragmentActivity implements RadioGroup.OnC
         transaction.commit();
     }
     /*
-   *判断是否已经等陆过，如果已经登录过就从本地获取用户信息
-   */
+  *判断是否已经等陆过，如果已经登录过就从本地获取用户信息
+  */
     private void initUserID(){
         SharedFileUtils util = new SharedFileUtils(this,"USER_INFO", Activity.MODE_PRIVATE);
         String id = util.readStringFile("user_id","");
@@ -406,7 +406,7 @@ public class HomeActivity extends BaseFragmentActivity implements RadioGroup.OnC
      * 获取购物车商品种类
      */
     public void downLoadShoppingCartInfo(){
-        String url= Constants.GOOD_SHOPPING_CART_LIST+"?"+"token"+"="+MyApplication.USER_TOKEN;
+        String url= Constants.GOOD_SHOPPING_CART_LIST+MyApplication.USER_ID+"?"+"token"+"="+ MyApplication.USER_TOKEN;
         HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {
             @Override
             public void requstSuccful(String result) {
@@ -598,7 +598,7 @@ public class HomeActivity extends BaseFragmentActivity implements RadioGroup.OnC
     }
   //当activity被回收时 fragment一起被释放
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        //super.onSaveInstanceState(outState, outPersistentState);
+    protected void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
     }
 }

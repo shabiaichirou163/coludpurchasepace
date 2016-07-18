@@ -45,4 +45,6 @@
     <string name="load_fail">加载失败</string>
 
     <string name="title_activity_small_room_goods_details">SmallRoomGoodsDetailsActivity</string>
+
+    <string name="title_activity_order_check">OrderCheckActivity</string>
 </resources>

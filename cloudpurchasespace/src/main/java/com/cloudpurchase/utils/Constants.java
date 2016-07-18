@@ -16,7 +16,7 @@ public interface Constants {
 
 
 
-
+   //商品数据库量表(SQLite) 先暂时未用
     public static final String GOODS_DB_NAME="ShoppingInfo.db";
     public static final String GOODS_TABLE_NAME="goods";
     public static final String GOODS_ID_NAME="_id";
@@ -30,7 +30,10 @@ public interface Constants {
     public static final String GOODS_JOIN_COST_NAME="joinCost";//分别代表1元区   10元区  百元区商品
 
 
-    public static  final String BASE="http://192.168.1.123:8080/CloudPhrase";
+    public static  final String BASE="http://192.168.0.109:8080/CloudPhrase";
+
+
+
     /**
      * 1元区最新  最热   进度   总需人次（升序  降序） URL
      */
@@ -39,6 +42,10 @@ public interface Constants {
     public static final String ONE_AREA_PROGRESS=BASE+"/api/goods_sortlist/1/progress/1";
     public static final String ONE_AREA_ASC_SOFT=BASE+"/api/goods_sortlist/1/maxPrice/1";
     public static final String ONE_AREA_DES_SOFT=BASE+"/api/goods_sortlist/1/minPrice/1";
+
+
+
+    public static final String ONE=BASE+"/api/launchAd";
 
 
     /**
@@ -67,6 +74,10 @@ public interface Constants {
      */
     public static final String GOODS_DETAILS_NORMAL=BASE+"/api/goods/";
 
+    /**
+     * 商品详情页活动
+     */
+    public static final String GOODS_DETAILS_ACTIVITY=BASE+"/api/goods_playlist/";
 
     /**
      * 加入购物车
@@ -75,7 +86,7 @@ public interface Constants {
     /**
      * 购物车列表  此处暂用会员id暂用1
      */
-     public static final String GOOD_SHOPPING_CART_LIST=BASE+"/api/shopcart_list/7";
+     public static final String GOOD_SHOPPING_CART_LIST=BASE+"/api/shopcart_list/";
 
     /**
      * 删除购物车
@@ -92,14 +103,27 @@ public interface Constants {
      */
     public static final String REDUCE_SHOPPING_CART=BASE+"/api/del_num";
 
+    /**
+     * 生成订单
+     */
+    public static final String CREAT_NEW_ORDER=BASE+"/api/submit_shopcart";
+    /**
+     * 获取订单支付方式
+     */
 
+    public static final String GET_ORDER_PAY_TYPE=BASE+"/api/pay_list";
+
+    /**
+     * 订单支付成功
+     */
+    public static final String ORDER_PAY_SUCCEED=BASE+"/api/submit_order";
 
 
     /**
      * 登陆
      */
     public static final String LOGIN = BASE+"/api/login";
-    public static final String OUT_LOGIN = BASE+"/api/logout/";//退出登陆
+    public static final String OUT_LOGIN = BASE+"/api/logout";//退出登陆
     /**
      * 注册
      */
@@ -113,7 +137,10 @@ public interface Constants {
      * 参与记录
      */
     public static final String RECORD = BASE +"/api/order_list/";
+    /**
+     * 中奖记录
+     */
+    public static final String LUCKY = BASE + "/api/order_wining_list/";
 
-;
 
 }

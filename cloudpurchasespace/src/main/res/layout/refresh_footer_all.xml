@@ -16,7 +16,9 @@
         android:id="@+id/load_more_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?android:attr/progressBarStyleSmall"/>
+        style="@android:style/Widget.Holo.ProgressBar"/>
+
+        <!-- style="?android:attr/progressBarStyleSmall"-->
     <TextView
         android:id="@+id/load_more_text"
         android:layout_width="wrap_content"
@@ -26,6 +28,6 @@
         android:textColor="@color/text_color_block"
         android:text="正在加载更多..."
         android:layout_marginLeft="15dp"
-        android:textSize="@dimen/text_size_12"/>
+        android:textSize="@dimen/top_text_13"/>
     </LinearLayout>
 </LinearLayout>

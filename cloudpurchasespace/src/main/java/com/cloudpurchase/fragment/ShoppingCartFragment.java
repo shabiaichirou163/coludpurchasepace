@@ -3,6 +3,8 @@ package com.cloudpurchase.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -20,7 +22,9 @@ import com.cloudpurchase.adpater.ForShoppingCartAdpater;
 import com.cloudpurchase.base.BaseFragment;
 import com.cloudpurchase.cloudpurchase.GoodsDetailsActivity;
 import com.cloudpurchase.cloudpurchase.HomeActivity;
+import com.cloudpurchase.cloudpurchase.LoginActivity;
 import com.cloudpurchase.cloudpurchase.MyApplication;
+import com.cloudpurchase.cloudpurchase.OrderCheckActivity;
 import com.cloudpurchase.cloudpurchase.PayActivity;
 import com.cloudpurchase.cloudpurchase.R;
 import com.cloudpurchase.db.DBWrapper;
@@ -35,9 +39,11 @@ import com.cloudpurchase.utils.RequestResultIn;
 import com.cloudpurchase.utils.ShoppingCartDeleteListener;
 import com.cloudpurchase.utils.ShoppingClickListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -47,9 +53,8 @@ import java.util.List;
 public class ShoppingCartFragment extends BaseFragment implements View.OnClickListener,ShoppingCartDeleteListener,ShoppingClickListener,
         PersonNumChangeListener{
     private View mShoppingCart;
-    private Button mBtn;
+    private Button mBtn,mGoToLogin;
     private FragmentManager mFm;
-    private DBWrapper mDbWrapper;
     private List<GoodsDetails> mCartGoodsData;
     private LinearLayout mLayout;
     private ListView mShoppingInfoLst;
@@ -57,19 +62,25 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
     private TextView mShoppingNum,mGoodsPirce;//购物车产品的数量 以及价格
     private ForShoppingCartAdpater mAdpater;
     private JsonReslove mReslove;//解析购物页面信息
-    private ShoppingCartInfo mInfo;
-    private boolean mIsFisrt;
-    private boolean mIsFisrtData;
+    private ShoppingCartInfo mInfo;//加载后购物车信息
+    private boolean mIsFisrtData;//时候首次加载
     private String mFlag;
+    private TextView mTxtMark;//购物车回调文字提醒
     @Override
     public View initView() {
         mShoppingCart= LayoutInflater.from(getActivity()).inflate(R.layout.fragment_shopping_cart, null);
-        mDbWrapper=new DBWrapper(getActivity());
         mReslove=new JsonReslove(getActivity());
         mFm=getActivity().getSupportFragmentManager();
         mLayout= (LinearLayout) mShoppingCart.findViewById(R.id.shopping_cart_layout);
-        this.creatProgressDialog();
-        downLoadShoppingCartData();
+        if (MyApplication.USER_IS_LOGIN_FLAG) {
+            this.creatProgressDialog();
+            downLoadShoppingCartData();
+        }else {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_shopping_cart_nologin, null);
+            mLayout.addView(view);
+            mGoToLogin= (Button) mShoppingCart.findViewById(R.id.frag_shopping_cart_nologin_btn);
+            mGoToLogin.setOnClickListener(this);
+        }
         return mShoppingCart;
     }
 
@@ -88,15 +99,15 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
      */
 
     public void downLoadShoppingCartData(){
-        String url= Constants.GOOD_SHOPPING_CART_LIST+"?"+"token"+"="+ MyApplication.USER_TOKEN;
+        String url= Constants.GOOD_SHOPPING_CART_LIST+MyApplication.USER_ID+"?"+"token"+"="+ MyApplication.USER_TOKEN;
         HttpRequest.getHttpRequest().requestGET(url, null, new RequestResultIn() {
             @Override
             public void requstSuccful(String result) {
-                LogUtils.e(result);
+                LogUtils.e(result + "购物车列表");
                 try {
-                    JSONObject jsonObject=new JSONObject(result);
-                    mCartGoodsData=mReslove.resloverShoppingCart(jsonObject);
-                    mInfo=mReslove.resloveShoppingCartInfo(jsonObject);
+                    JSONObject jsonObject = new JSONObject(result);
+                    mCartGoodsData = mReslove.resloverShoppingCart(jsonObject);
+                    mInfo = mReslove.resloveShoppingCartInfo(jsonObject);
                     shoppingCartSetdata();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -105,8 +116,7 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
 
             @Override
             public void requstError(VolleyError error) {
-                LogUtils.e("##########################");
-                shoppingCartSetdata();
+
             }
         });
     }
@@ -136,6 +146,7 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
                         mShoppingNum.setText(mCartGoodsData.size() + "");
                         mGoodsPirce.setText(mInfo.getTotalPrice() + "");
                         mAdpater.refreshData(mCartGoodsData);
+                        addShoppingCartCount();
                         break;
                     case "change":
                         mGoodsPirce.setText(mInfo.getTotalPrice() + "");
@@ -144,23 +155,43 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
 
             }
         }else {
-            if (!mIsFisrt) {
+            if (!mIsFisrtData) {
                 View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_shopping_cart_noshopping, null);
                 mLayout.addView(view);
                 this.cancelDialog();
                 mBtn = (Button) mShoppingCart.findViewById(R.id.frag_shopping_cart_btn);
                 mBtn.setOnClickListener(this);
-                mIsFisrt=true;
+                mIsFisrtData=true;
             }else {
                 RadioButton btn0= (RadioButton) ((HomeActivity) getActivity()).findViewById(R.id.buttom_homePage);
                 RadioButton btn2= (RadioButton) ((HomeActivity) getActivity()).findViewById(R.id.buttom_shoppingCart);
                 btn0.setChecked(true);
                 btn2.setChecked(true);
+                addShoppingCartCount();
             }
 
         }
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        mTxtMark= (TextView) getActivity().findViewById(R.id.shopping_count);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+
+
+    /**
+     * 添加商品到购物车后购物车右上角文字提醒
+     */
+    public void addShoppingCartCount(){
+        if (mCartGoodsData!=null&&mCartGoodsData.size()>0){
+            mTxtMark.setVisibility(View.VISIBLE);
+            mTxtMark.setText(mCartGoodsData.size()+"");
+        }else {
+            mTxtMark.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -169,7 +200,10 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
                 displayHomePage();
                 break;
             case R.id.shopping_cart_goods_pay_btn:
-                toOtherActivityResult(PayActivity.class);
+                toOtherActivityResult(OrderCheckActivity.class);
+                break;
+            case R.id.frag_shopping_cart_nologin_btn:
+                toOtherActivityResult(LoginActivity.class);
                 break;
         }
     }
@@ -202,7 +236,6 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
         mFlag="change";
        downLoadShoppingCartData();
     }
-
 
 
 

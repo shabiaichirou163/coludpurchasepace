@@ -63,7 +63,7 @@ public class ShowedAdpater extends BaseAdapter {
         viewHolder.showedImg.setImageResource(R.mipmap.ip);
         viewHolder.showedDescription.setText(mData.get(position).getDescription());
         viewHolder.showedDataTime.setText("30601665");
-        viewHolder.showedUser.setText("小小老虎的话多多");
+        viewHolder.showedUser.setText("小小老虎");
         viewHolder.showedTotalNum.setText("4399");
         viewHolder.showedLuckNum.setText("10003167");
         viewHolder.showedTime.setText("今天13:08");
